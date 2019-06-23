@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Peach.mappers.user.UserMapper">
+    <resultMap id="userVOResultMap" type="UserVO">
+        <result property="userEmail" column="email"/>
+        <result property="userPw" column="user_pw"/>
+        <result property="userNickName" column="nickname"/>
+        <result property="category" column="category"/>
+    </resultMap>
+
+
+    <insert id="register">
+        INSERT INTO artist (
+          email,
+          user_pw,
+          nickname,
+          category
+        ) VALUES (
+          #{userEmail},
+          #{userPw},
+          #{userNickName},
+          #{category}
+        )
+    </insert>
+
+    <select id="login" resultMap="userVOResultMap">
+      SELECT
+       email
+      FROM artist
+      WHERE email = #{userEmail}
+    </select>
+
+    <!--<select id="login" resultType="UserVO">
+        select * from artist where email = #{userEmail} and pw = #{userPw}
+    </select>
+
+    <insert id="register">
+        INSERT INTO artist (
+          email,
+          pw,
+          nickname,
+          category
+        ) VALUES (
+          #{userEmail},
+          #{userPw},
+          #{userNickName},
+          #{category}
+        )
+    </insert>-->
+</mapper>
+

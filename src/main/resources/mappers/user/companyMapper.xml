@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Peach.mappers.user.CompanyMapper">
+    <resultMap id="companyVOResultMap" type="CompanyVO">
+        <result property="companyEmail" column="email"/>
+        <result property="companyPw" column="company_pw"/>
+        <result property="companyName" column="company_name"/>
+    </resultMap>
+
+    <insert id="register_co">
+        INSERT INTO employer (
+          email,
+          pw,
+          company_name,
+
+        ) VALUES (
+          #{companyEmail},
+          #{companyPw},
+          #{companyName},
+        )
+    </insert>
+
+    <select id="login_co" resultMap="companyVOResultMap">
+      SELECT
+        *
+      FROM employer
+      WHERE email = "#{companyEmail}"
+    </select>
+</mapper>

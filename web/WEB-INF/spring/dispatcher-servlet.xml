@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="classpath:/resources/"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="WEBPJ"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="loginInterceptor" class="WEBPJ.commons.interceptor.LoginInterceptor"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/loginPost"/>
+            <ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    
+    <bean id="authInterceptor" class="WEBPJ.commons.interceptor.AuthInterceptor"/>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/board/applicant_list"/>
+            <mvc:mapping path="/board/Profile_list"/>
+            <mvc:mapping path="/board/board"/>
+            <mvc:mapping path="/board/board_view"/>
+            <ref bean="authInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="companyLoginInterceptor" class="WEBPJ.commons.interceptor_co.CompanyLoginInterceptor"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/E_Profile"/>
+            <ref bean="companyLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="authInterceptor_co" class="WEBPJ.commons.interceptor_co.AuthInterceptor_co"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/board/applicant_list"/>
+            <mvc:mapping path="/board/Profile_list"/>
+            <mvc:mapping path="/board/board"/>
+            <mvc:mapping path="/board/board_view"/>
+            <ref bean="authInterceptor_co"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
